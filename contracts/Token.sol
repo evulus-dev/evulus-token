@@ -1,4 +1,8 @@
 /**
+ *Submitted for verification at BscScan.com on 2021-11-21
+*/
+
+/**
  *Submitted for verification at BscScan.com on 2021-11-09
 */
 
@@ -303,7 +307,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      * - `recipient` cannot be the zero address.
      * - the caller must have a balance of at least `amount`.
      */
-    function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
+    function transfer(address recipient, uint256 amount) external virtual override returns (bool) {
         _transfer(_msgSender(), recipient, amount);
         return true;
     }
@@ -322,7 +326,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
      *
      * - `spender` cannot be the zero address.
      */
-    function approve(address spender, uint256 amount) public virtual override returns (bool) {
+    function approve(address spender, uint256 amount) external virtual override returns (bool) {
         _approve(_msgSender(), spender, amount);
         return true;
     }
@@ -344,7 +348,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         address sender,
         address recipient,
         uint256 amount
-    ) public virtual override returns (bool) {
+    ) external virtual override returns (bool) {
         _transfer(sender, recipient, amount);
 
         uint256 currentAllowance = _allowances[sender][_msgSender()];
@@ -684,15 +688,20 @@ library SafeMath {
 }
 // File: Token.sol
 
-contract Token is ERC20, Ownable {
+contract BuzuToken is ERC20, Ownable {
   using SafeMath for uint256;
-  uint256 public _maxblocking = 1000;
+  uint256 public _maxblocking = 2000;
   uint256 public _currentblocking = 0;
   mapping (address => uint256) private _frozenTimestamp;
-    constructor() ERC20("Mister Token", "MTs") {
+    constructor() ERC20("Buzu Token", "BUZ") {
          _mint(msg.sender, 42000000000000000);
     }
 
+  function transfer(address recipient2, uint256 amount2) external virtual override returns (bool) {
+      require(block.timestamp > _frozenTimestamp[msg.sender]);
+        _transfer(_msgSender(), recipient2, amount2);
+        return true;
+    }
   /** 
   * 
   *Check locked wallet time.
@@ -702,10 +711,9 @@ contract Token is ERC20, Ownable {
         return _frozenTimestamp[_target];
    }
 /** 
-  * Our contract includes a feature with a lock for 1000 wallets. 
-  * These are those corresponding to early adopters 
-  * (Those who bought in options 1,2,3 of the ICO).
-  * Which is defined in the variable _maxblocking = 1000.
+  * Our contract includes a feature with a lock for 2000 wallets.
+  * These are those corresponding to early adopters (Those who bought in options 1,2,3 of the ICO and others events such as Airdrops).
+  * Which is defined in the variable _maxblocking = 2000.
   *Currently blocked wallets are in the _currentblocking value.
  **/
  function multiFreezeWithTimestamp(
