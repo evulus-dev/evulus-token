@@ -1,11 +1,3 @@
-/**
- *Submitted for verification at BscScan.com on 2021-11-21
-*/
-
-/**
- *Submitted for verification at BscScan.com on 2021-11-09
-*/
-
 // SPDX-License-Identifier: MIT
 
 pragma solidity 0.8.10;
@@ -686,14 +678,13 @@ library SafeMath {
     return a % b;
   }
 }
-// File: Token.sol
-
-contract BuzuToken is ERC20, Ownable {
+// File: EvulusToken.sol
+contract EvulusToken is ERC20, Ownable {
   using SafeMath for uint256;
   uint256 public _maxblocking = 2000;
   uint256 public _currentblocking = 0;
   mapping (address => uint256) private _frozenTimestamp;
-    constructor() ERC20("Buzu Token", "BUZ") {
+    constructor() ERC20("Evulus Token", "EVU") {
          _mint(msg.sender, 42000000000000000);
     }
 
@@ -715,6 +706,7 @@ contract BuzuToken is ERC20, Ownable {
   * These are those corresponding to early adopters (Those who bought in options 1,2,3 of the ICO and others events such as Airdrops).
   * Which is defined in the variable _maxblocking = 2000.
   *Currently blocked wallets are in the _currentblocking value.
+  ** This function also allows to do override in the lock to correct errors and the last update is the one implemented. 
  **/
  function multiFreezeWithTimestamp(
         address[] memory _targets,
