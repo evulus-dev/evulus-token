@@ -1,0 +1,11 @@
+{
+    "name": "Evulus Token",
+    "type": "BEP20",
+    "symbol": "EVU",
+    "decimals": 9,
+    "website": "https://evulus.com/evulus-token",
+    "description": "-",
+    "explorer": "https://bscscan.com/token/0x18b5f22266343ccd180c6285a66cc9a23dc262e9",
+    "status": "active",
+    "id": "0x18B5F22266343cCD180C6285a66cC9A23Dc262E9"
+}
